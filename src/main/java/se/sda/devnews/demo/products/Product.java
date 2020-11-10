@@ -1,16 +1,30 @@
 package se.sda.devnews.demo.products;
 
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table
 public class Product {
 
+    @Id
+    @Column
     private Long id;
+    @Column
     private String name;
+    @Column
     private String date;
+
+    public Product() {
+    }
 
     public Product(Long id, String name, String date) {
         this.id = id;
         this.name = name;
         this.date = date;
-
     }
 
     public Long getId() {

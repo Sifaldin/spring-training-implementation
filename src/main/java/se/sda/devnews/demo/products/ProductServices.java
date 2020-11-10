@@ -10,29 +10,28 @@ import java.util.stream.Collectors;
 
 @Service
 public class ProductServices {
-    private List<Product> productList;
+
+    private ProductRepository repo;
     private Long idCounter = 1L;
-
-
-
+   /* private List<Product> productList;
     public ProductServices() {
         this.productList = new ArrayList<>();
         add(new Product(null, "keyboard", "2020.01.01"));
         add(new Product(null, "mouse", "2019.01.01"));
         add(new Product(null, "monitor", "2019.01.02"));
-    }
+    }*/
 
     public List<Product> getAll(String sort) {
-        return productList.stream().sorted(Comparator
+        return repo.findAll().stream().sorted(Comparator
                 .comparing(sort.equals("name") ? Product::getName : Product::getDate))
                 .collect(Collectors.toList());
     }
 
     public Optional<Product> getById(Long id) {
-
-        return productList.stream().filter((p) -> p.getId().equals(id)).findFirst();
+        return repo.findById(id);
         /*
-       (Optional<> is added so no need for this for now and to seperate http related work from services class)
+        return productList.stream().filter((p) -> p.getId().equals(id)).findFirst();
+        (Optional<> is added so no need for this for now and to seperate http related work from services class)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
          */
         /*
@@ -44,19 +43,19 @@ public class ProductServices {
          */
     }
 
-    public Product createProduct(Product newProduct){
-        add(newProduct);
-        return newProduct;
+    public Product createProduct(Product newProduct) {
+        newProduct.setId(idCounter);
+        idCounter++;
+        return repo.save(newProduct);
     }
-
-    public boolean add(Product newProduct){
+    /*public boolean add(Product newProduct){
         newProduct.setId(idCounter);
         idCounter++;
         return productList.add(newProduct);
 
-    }
-
+    }*/
     public void deleteProduct(Long id) {
-        productList = productList.stream().filter(p -> !p.getId().equals(id)).collect(Collectors.toList());
+        repo.deleteById(id);
+        /* productList = productList.stream().filter(p -> !p.getId().equals(id)).collect(Collectors.toList()); */
     }
 }
