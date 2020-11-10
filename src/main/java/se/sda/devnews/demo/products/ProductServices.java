@@ -1,5 +1,6 @@
 package se.sda.devnews.demo.products;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.stream.Collectors;
 @Service
 public class ProductServices {
 
+    @Autowired
     private ProductRepository repo;
     private Long idCounter = 1L;
    /* private List<Product> productList;

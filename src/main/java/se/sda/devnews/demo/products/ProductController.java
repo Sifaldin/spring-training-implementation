@@ -32,6 +32,10 @@ public class ProductController {
   curl --header "Content-Type: application/json" \
   --request POST \
   --data '{"name":"laptop", "date":"2020.12.12"}' \ http: localhost:8080/products
+
+  OR
+
+  curl -X POST -d '{"name":"laptop", "date":"2020.12.12"}' -H "Content-Type: application/json" localhost:8080/products
  */
     @PostMapping("")
     public Product create(@RequestBody Product newProduct){
