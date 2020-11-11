@@ -14,7 +14,7 @@ public class ProductServices {
 
     @Autowired
     private ProductRepository repo;
-    private Long idCounter = 1L;
+
    /* private List<Product> productList;
     public ProductServices() {
         this.productList = new ArrayList<>();
@@ -46,10 +46,10 @@ public class ProductServices {
     }
 
     public Product createProduct(Product newProduct) {
-        newProduct.setId(idCounter);
-        idCounter++;
+
         return repo.save(newProduct);
     }
+
     /*public boolean add(Product newProduct){
         newProduct.setId(idCounter);
         idCounter++;
@@ -59,5 +59,13 @@ public class ProductServices {
     public void deleteProduct(Long id) {
         repo.deleteById(id);
         /* productList = productList.stream().filter(p -> !p.getId().equals(id)).collect(Collectors.toList()); */
+    }
+
+    public Product update(Product updatedProduct) {
+        return repo.save(updatedProduct);
+    }
+
+    public List<Product> getAllByCategoryId(Long categoryId) {
+        return repo.findAllByCategoryId(categoryId);
     }
 }
